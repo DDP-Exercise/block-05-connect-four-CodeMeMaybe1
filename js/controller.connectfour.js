@@ -37,11 +37,34 @@
  *
  *     The creation of this game should take you somewhere between
  *     8-10 hours of concentrated work.
- *     Bratlsoft - 2026-04-29
+ *     Carina - 2026-04-29
  *******************************************************/
 
 
 //TODO: Create your controller-object. When initiated, it should boot
 //      the view (or views, if you decide to make a console-view).
+const CONTROLLER = {
+    init() {
+        VIEW.init();
+        MODEL.initBattlefield();
+
+        VIEW.updateField(MODEL.board);
+        VIEW.showCurrentPlayer(MODEL.currentPlayer);
+
+        this.addEventListener();
+    },
 
 //TODO: Add EventListeners, to forward the user inputs to the model.
+
+    addEventListener() {
+        document.addEventListener("click", (event) => {
+            if (event.target.classList.contains('cell')) {
+                const COLUMN = Number(event.target.dataset.column);
+
+                MODEL.insertStone(COLUMN);
+            }
+        });
+    }
+};
+
+CONTROLLER.init();
